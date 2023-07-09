@@ -1,32 +1,18 @@
-const bands = [
-    "The Plot in You",
-    "The Devil Wears Prada",
-    "Pierce the Veil",
-    "Norma Jean",
-    "The Bled",
-    "Say Anything",
-    "The Midway State",
-    "We Came as Romans",
-    "Counterparts",
-    "Oh, Sleeper",
-    "A Skylit Drive",
-    "Anywhere But Here",
-    "An Old Dog"
-];
+const bands = ['The Beatles', 'Led Zeppelin', 'Pink Floyd', 'Aerosmith'];
 
-/**
- * 我們希望排序的時候能略過一些關鍵字
- **/
-function strip (word) {
-    let regex = new RegExp('^(a |the |an )', 'i')
-    return word.replace(regex, '').trim()
+// Define the strip function to remove common words from band names
+function strip(word) {
+const regex = /^(a |the |an )/i;
+return word.replace(regex, '').trim();
 }
 
-const sortedBands = bands.sort((a, b) => (strip(a) > strip(b)) ? 1 : -1)
+// Sort the bands array using the strip function to ignore common words
+const sortedBands = bands.sort((a, b) => (strip(a) > strip(b)) ? 1 : -1);
 
-
-/** 
- * add ul list in HTML
- **/
-document.querySelector('#bands').innerHTML = 
-    sortedBands.map(item => `<li>${item}</li>`).join('')
+// Update the DOM with the sorted band names
+const bandList = document.getElementById('band');
+sortedBands.forEach(band => {
+const listItem = document.createElement('li');
+listItem.textContent = band;
+bandList.appendChild(listItem);
+});
