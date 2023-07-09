@@ -1,31 +1,32 @@
-let bandNames = ['The Rolling Stones', 'Led Zeppelin', 'The Beatles', 'Pink Floyd', 'Radiohead'];
+const bands = [
+    "The Plot in You",
+    "The Devil Wears Prada",
+    "Pierce the Veil",
+    "Norma Jean",
+    "The Bled",
+    "Say Anything",
+    "The Midway State",
+    "We Came as Romans",
+    "Counterparts",
+    "Oh, Sleeper",
+    "A Skylit Drive",
+    "Anywhere But Here",
+    "An Old Dog"
+];
 
-function sortBandNames(names) {
-  const articles = ['a', 'an', 'the'];
-
-  // Remove articles from band names
-  const sortedNames = names.map((name) => {
-    const words = name.toLowerCase().split(' ');
-    const filteredWords = words.filter((word) => !articles.includes(word));
-    return filteredWords.join(' ');
-  });
-
-  // Sort band names in lexicographic order
-  sortedNames.sort();
-
-  return sortedNames;
+/**
+ * 我們希望排序的時候能略過一些關鍵字
+ **/
+function strip (word) {
+    let regex = new RegExp('^(a |the |an )', 'i')
+    return word.replace(regex, '').trim()
 }
 
-function displayBandNames(names) {
-  const bandList = document.getElementById('band');
-  names.forEach((name) => {
-    const listItem = document.createElement('li');
-    listItem.textContent = name;
-    bandList.appendChild(listItem);
-  });
-}
-
-const sortedBandNames = sortBandNames(bandNames);
-displayBandNames(sortedBandNames);
+const sortedBands = bands.sort((a, b) => (strip(a) > strip(b)) ? 1 : -1)
 
 
+/** 
+ * add ul list in HTML
+ **/
+document.querySelector('#bands').innerHTML = 
+    sortedBands.map(item => `<li>${item}</li>`).join('')
