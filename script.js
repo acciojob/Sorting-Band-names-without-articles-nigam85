@@ -1,15 +1,27 @@
-const bands = ["The Rolling Stones", "Pink Floyd", "The Beatles", "Led Zeppelin", "Nirvana"];
+let bandNames = ['The Beatles', 'Led Zeppelin', 'Pink Floyd', 'Aerosmith', 'The Rolling Stones', 'Queen', 'Anathema'];
 
-function stripArticle(name) {
-  return name.replace(/^(a |an |the )/i, "").trim();
+// Function to remove articles and sort the band names
+function sortBandNames(bandNames) {
+    const articles = ['the', 'an', 'a'];
+    const sortedNames = bandNames.sort((a, b) => {
+        const cleanA = a.toLowerCase().replace(/^(the|an|a)\s+/i, '');
+        const cleanB = b.toLowerCase().replace(/^(the|an|a)\s+/i, '');
+        return cleanA.localeCompare(cleanB);
+    });
+    return sortedNames;
 }
 
-const sortedBands = bands.sort((a, b) => stripArticle(a) > stripArticle(b) ? 1 : -1);
+const sortedBandNames = sortBandNames(bandNames);
 
-// Render the sorted band names without articles
-const ul = document.querySelector("ul");
-sortedBands.forEach(band => {
-  const li = document.createElement("li");
-  li.textContent = band;
-  ul.appendChild(li);
-});
+// Generating the HTML list
+const ul = document.createElement('ul');
+ul.setAttribute('id', 'band');
+
+for (const name of sortedBandNames) {
+    const li = document.createElement('li');
+    li.textContent = name;
+    ul.appendChild(li);
+}
+
+// Adding the list to the HTML body
+document.body.appendChild(ul);
